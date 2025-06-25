@@ -7,12 +7,14 @@ on:
 
 jobs:
   run-tests:
+    if: ${{ !startsWith(github.event.repository.name, 't-') }}
     runs-on: [self-hosted, stuycs-k, linux]  # Use your runner's label
-    if: "!startsWith(github.event.repository.name, 't-')"
 
     steps:
-      - name: Checkout code
+      - name: Checkout full git history
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Required to use git rev-list and similar history-based commands
 
       - name: Run default tester
         run: |

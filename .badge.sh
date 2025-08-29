@@ -2,6 +2,7 @@
 
 # Get the current repo name
 repo_name=$(basename -s .git "$(git config --get remote.origin.url)")
+echo "repo name:" $repo_name
 
 # Construct the correct badge line
 badge_line="![CI](https://github.com/stuycs-k/$repo_name/actions/workflows/ci.yml/badge.svg)"

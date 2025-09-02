@@ -59,8 +59,8 @@ if [ -f "$CLASSNAME.class" ]; then
     err=1
   else
     echo -e "❓It ran with output:"
-    echo "$output"
-    echo "Expected:             'Hello World, FUN_FACT_ABOUT_YOU'"  
+    echo "Output  : '$output'"
+    echo "Expected: 'Hello World, FUN_FACT_ABOUT_YOU'"  
   fi  
 else
    echo -e "${RED}❌Cannot run $CLASSNAME.java, no class file found.${RESET}"

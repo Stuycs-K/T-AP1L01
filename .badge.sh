@@ -10,22 +10,42 @@ badge_line="![CI](https://github.com/stuycs-k/$repo_name/actions/workflows/ci.ym
 # README file to update
 readme_file="README.md"
 
-# Step 1: Replace the top line if it contains "AP1L"
-if head -n 1 "$readme_file" | grep -q "AP1L"; then
-    tail -n +2 "$readme_file" > "${readme_file}.tmp"
-    echo "$badge_line" | cat - "${readme_file}.tmp" > "$readme_file"
-    rm -f "${readme_file}.tmp"
-    echo "🧹 Replaced top line containing 'AP1L'"
+# Step 1: If repo starts with "AP"
+if [[ "$repo_name" == AP* ]]; then
+    # Step 2: Add the badge if it's not already present
+    if ! grep -Fq "$badge_line" "$readme_file"; then
+        echo "$badge_line" > "$tmp_file"
+        cat "$readme_file" >> "$tmp_file"
+        mv "$tmp_file" "$readme_file"
+        echo "✅ Added CI badge for $repo_name"
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+        git add .
+        git diff --cached --quiet || (git commit -m "Run update.sh on repo creation" && git push)
+    else
+        echo "ℹ️  CI badge already present"
+    fi
+else
+    echo "ℹ️ Repo $repo_name does not start with 'AP' → no badge added"
 fi
 
-# Step 2: Add the badge if it's not already present
-if ! grep -Fq "$badge_line" "$readme_file"; then
-    echo -e "\n$badge_line" >> "$readme_file"
-    echo "✅ Added CI badge for $repo_name"
-    git config user.name "github-actions[bot]"
-    git config user.email "github-actions[bot]@users.noreply.github.com"
-    git add .
-    git diff --cached --quiet || (git commit -m "Run update.sh on repo creation" && git push)
-else
-    echo "ℹ️  CI badge already present"
-fi
+
+# # Step 1: Add the top line if the repo contains "AP"
+# if head -n 1 "$readme_file" | grep -q "AP1L"; then
+#     tail -n +2 "$readme_file" > "${readme_file}.tmp"
+#     echo "$badge_line" | cat - "${readme_file}.tmp" > "$readme_file"
+#     rm -f "${readme_file}.tmp"
+#     echo "🧹 Replaced top line containing 'AP1L'"
+# fi
+
+# # Step 2: Add the badge if it's not already present
+# if ! grep -Fq "$badge_line" "$readme_file"; then
+#     echo -e "\n$badge_line" >> "$readme_file"
+#     echo "✅ Added CI badge for $repo_name"
+#     git config user.name "github-actions[bot]"
+#     git config user.email "github-actions[bot]@users.noreply.github.com"
+#     git add .
+#     git diff --cached --quiet || (git commit -m "Run update.sh on repo creation" && git push)
+# else
+#     echo "ℹ️  CI badge already present"
+# fi

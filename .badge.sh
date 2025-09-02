@@ -1,5 +1,5 @@
 #!/bin/bash
-
+COURSE="AP"
 # Get the current repo name
 repo_name=$(basename -s .git "$(git config --get remote.origin.url)")
 echo "repo name:" $repo_name
@@ -10,8 +10,8 @@ badge_line="![CI](https://github.com/stuycs-k/$repo_name/actions/workflows/ci.ym
 # README file to update
 readme_file="README.md"
 
-# Step 1: If repo starts with "AP"
-if [[ "$repo_name" == AP* ]]; then
+# Step 1: If repo starts with the COURSE prefix
+if [[ "$repo_name" == $COURSE* ]]; then
     # Step 2: Add the badge if it's not already present
     if ! grep -Fq "$badge_line" "$readme_file"; then
         echo "$badge_line" > "$tmp_file"

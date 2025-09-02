@@ -1,4 +1,4 @@
-
+![CI](https://github.com/stuycs-k/_REPONAME_/actions/workflows/ci.yml/badge.svg)
 
 # APCS1-Lab01
 

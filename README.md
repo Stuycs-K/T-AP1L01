@@ -20,3 +20,6 @@ Remember from class: `boolean makeBricks(int small, int big, int goal)` - We wan
 
 2. Now test your [java-fu](https://en.wiktionary.org/wiki/-fu), write a hello world program from scratch; do not copy/paste it. Name the file `Hello.java`, create a class called Hello, and write a main method that prints `"Hello World, XXX"` to the terminal, where XXX is a fun fact about yourself (that is not longer than 40 characters).
 
+### Include Tester.java from your summer assignment.
+
+3. Add the file `Tester.java` to the repo, and add/commit/push it. This should be next to your `Functions.java` file.
